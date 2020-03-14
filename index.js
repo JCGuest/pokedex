@@ -22,13 +22,17 @@ function handleOnSearchSubmit() {
     .then(pokemonData => {
     const newPokemon = new Pokemon(pokemonData)
     let profileDiv = document.getElementById('profile')
-    let headerDiv = document.getElementById(' ')
+    let headerDiv = document.getElementById('header')
     profileDiv.innerHTML = `
       <h2>Profile</h2>
       <ul>
-        <li>Height: ${newPokemon.height} inches</li>
+        <li>Height: ${newPokemon.height} ft</li>
         <li>Weight: ${newPokemon.weight} lbs</li>
       </ul>
+    `
+    headerDiv.innerHTML = `
+      <h1>Name: ${newPokemon.name}</h1>
+     
     `
   })
 })
