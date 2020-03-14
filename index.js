@@ -1,20 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
   handleOnSearchSubmit()
-} )
+})
+
+class Pokemon {
+  constructor(pokemonData) {
+    this.pokedexId = pokemonData.id
+    this.name = pokemonData.name
+    this.height = pokemonData.height
+    this.weight = pokemonData.weight
+  }
+}
 
 function handleOnSearchSubmit() {
   const form = document.getElementById('pokemon-form')
-  form.addEventListener('submit', (e) => {
-    // const inputValue = document.getElementById('search-input').value
-    e.preventDefault()
-    console.log(e)
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    let pokemonName = e.target['search-input'].value
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    .then(result => result.json())
+    .then(pokemonData => {
+    const newPokemon = new Pokemon(pokemonData)
+    let profileDiv = document.getElementById('profile')
+    let headerDiv = document.getElementById(' ')
+    profileDiv.innerHTML = `
+      <h2>Profile</h2>
+      <ul>
+        <li>Height: ${newPokemon.height} inches</li>
+        <li>Weight: ${newPokemon.weight} lbs</li>
+      </ul>
+    `
   })
+})
 }
-
-// fetch('http://api.open-notify.org/astros.json')
-// .then(function(response) {
-//   return response.json();
-// })
-// .then(function(json) {
-//   console.log(json)
-// });
